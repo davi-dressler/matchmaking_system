@@ -12,7 +12,6 @@ Matchmaking::~Matchmaking() {
     delete[] this->players; 
 }
 
-
 bool Matchmaking::insert(Player player) {
   if (this->size == MAX_PLAYERS){
     return false;
@@ -24,8 +23,6 @@ bool Matchmaking::insert(Player player) {
   return true;
 }
 
-//Verificar implementação
-//vamos usar array circular?
 bool Matchmaking::removePlayer(int id){
   for(int i = 0; i < this->size; i++){
     int player_id = this->players[i].getId();
@@ -90,24 +87,30 @@ Player* Matchmaking::formGroup(int groupSize, int delta, int* n){
 }
 
 Player* Matchmaking::getWaitingPlayers(int* n){
-//   deve retornar um novo array alocado dinamicamente contendo cópias dos jogadores atualmente armazenados no sistema.
+  if(this->size = 0){
+    *n = 0;
+    return nullptr;
+  }
 
-// Além disso:
+  Player* waiting_players = new Player[size];
 
-// o parâmetro n deve ser utilizado para informar a quantidade de jogadores retornados;
-// caso não existam jogadores, o método deve retornar nullptr e definir *n = 0;
-// a memória alocada para o array retornado deve ser liberada por quem chamou a função, utilizando delete[].
+  for(int i = 0; i < size; i++){
+    waiting_players[i] = this->players[i];
+  }
+
+  *n = this->size;
+  return waiting_players;
+
 }
 
-//Verficar implementação
 void Matchmaking::printWaitingPlayers() {
-    std::cout << "Waiting Players:" << std::endl;
-    
-    for (int i = 0; i < this->size; i++) {   // < em vez de <=
-        Player& p = this->players[i];
-        std::cout << "[" << p.getId() << " | "
-                  << p.getName()      << " | "
-                  << p.getScore()     << " | "
-                  << p.getTimestamp() << "]" << std::endl;
-    }
+  std::cout << "Waiting Players:" << std::endl;
+  
+  for (int i = 0; i < this->size; i++) {   // < em vez de <=
+      Player& p = this->players[i];
+      std::cout << "[" << p.getId() << " | "
+                << p.getName()      << " | "
+                << p.getScore()     << " | "
+                << p.getTimestamp() << "]" << std::endl;
+  }
 }
