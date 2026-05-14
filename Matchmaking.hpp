@@ -9,7 +9,7 @@ class Matchmaking {
 
 private:
 
-    Player players[MAX_PLAYERS];
+    Player* players;
     int size;
 
 public:
