@@ -78,12 +78,20 @@ Player* Matchmaking::merge(Player arr1[],int n, Player arr2[], int m){
   int j = 0;
 
   while (i < n && j < m) {
-    if (arr1[i].getScore() <= arr2[j].getScore()) {
+    if (arr1[i].getScore() < arr2[j].getScore()) {
       mArr[i + j] = arr1[i];
       i++;
-    } else {
+    } else if (arr1[i].getScore() > arr2[j].getScore()){
       mArr[i + j] = arr2[j];
       j++;
+    } else { // desempate
+      if (arr1[i].getTimestamp() < arr2[j].getTimestamp()) {
+        mArr[i + j] = arr1[i];
+        i++;
+      } else {
+        mArr[i + j] = arr2[j];
+        j++;
+      }
     }
   }
 

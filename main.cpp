@@ -12,7 +12,7 @@ int main(){
     match.insert(Player(5, "Ana", 1010, 4));
 
     match.printWaitingPlayers();
-    match.sortByScoreMerge();
+    match.sortByScoreInsertion();
     match.printWaitingPlayers();
 
     return 0;
