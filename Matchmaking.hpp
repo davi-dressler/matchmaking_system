@@ -20,6 +20,8 @@ public:
     bool insert(Player player);
     bool removePlayer(int id);
 
+    bool comparePlayer(Player player_1, Player player_2);
+
     void sortByScoreInsertion();
     void sortByScoreMerge();
 

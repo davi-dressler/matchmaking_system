@@ -8,9 +8,11 @@ Matchmaking::Matchmaking() {
     this->size = 0;
 }
 
+
 Matchmaking::~Matchmaking() {
     delete[] this->players; 
 }
+
 
 bool Matchmaking::insert(Player player) {
   if (this->size == MAX_PLAYERS){
@@ -22,6 +24,7 @@ bool Matchmaking::insert(Player player) {
 
   return true;
 }
+
 
 bool Matchmaking::removePlayer(int id){
   for(int i = 0; i < this->size; i++){
@@ -38,14 +41,27 @@ bool Matchmaking::removePlayer(int id){
   return false;
 }
 
-//Verificar implementação
-//Adicionar critério desempate
+
+bool Matchmaking::comparePlayer(Player player_1, Player player_2){
+  if(player_1.getScore() > player_2.getScore()){
+    return true;
+  }
+  if(player_1.getScore() == player_2.getScore()){
+    if(player_1.getTimestamp() > player_2.getTimestamp()){
+      return true;
+    }
+    return false;
+  }
+  return false;
+}
+
+
 void Matchmaking::sortByScoreInsertion() {
   for(int j = 1; j < this->size; j++){
     Player p_atual = this->players[j];
     int i = j - 1;
 
-    while(i >= 0 && this->players[i].getScore() > p_atual.getScore()){
+    while(i >= 0 && comparePlayer(this->players[i], p_atual)){
       this->players[i + 1] = this->players[i];
       i--;
     }
@@ -54,9 +70,11 @@ void Matchmaking::sortByScoreInsertion() {
   }
 }
 
+
 void Matchmaking::sortByScoreMerge(){
   
 }
+
 
 Player* Matchmaking::formGroup(int groupSize, int delta, int* n){
 
@@ -86,6 +104,7 @@ Player* Matchmaking::formGroup(int groupSize, int delta, int* n){
 
 }
 
+
 Player* Matchmaking::getWaitingPlayers(int* n){
   if(this->size = 0){
     *n = 0;
@@ -102,6 +121,7 @@ Player* Matchmaking::getWaitingPlayers(int* n){
   return waiting_players;
 
 }
+
 
 void Matchmaking::printWaitingPlayers() {
   std::cout << "Waiting Players:" << std::endl;
