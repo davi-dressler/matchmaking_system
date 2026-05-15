@@ -2,6 +2,7 @@
 #include "Matchmaking.hpp"
 #include "Player.hpp"
 
+using namespace std;
 
 Matchmaking::Matchmaking() {
     this->players = new Player[MAX_PLAYERS];  
@@ -31,7 +32,7 @@ bool Matchmaking::removePlayer(int id){
     int player_id = this->players[i].getId();
 
     if(player_id == id){
-      for(int j = i; j <= this-> size; j++){
+      for(int j = i; j < this-> size; j++){
         this->players[j] = players[j+1];
       }
       this->size--;
@@ -139,7 +140,7 @@ Player* Matchmaking::formGroup(int groupSize, int delta, int* n){
     int min_score = this->players[i].getScore(); 
     int max_score = this->players[i + groupSize - 1].getScore();
 
-    if(min_score - max_score <= delta){
+    if(max_score - min_score <= delta){
       Player* group = new Player[groupSize];
       for(int j = i; j <= i + groupSize - 1; j++){
         group[j - i] = this->players[i];
@@ -158,7 +159,7 @@ Player* Matchmaking::formGroup(int groupSize, int delta, int* n){
 
 
 Player* Matchmaking::getWaitingPlayers(int* n){
-  if(this->size = 0){
+  if(this->size == 0){
     *n = 0;
     return nullptr;
   }
@@ -176,13 +177,13 @@ Player* Matchmaking::getWaitingPlayers(int* n){
 
 
 void Matchmaking::printWaitingPlayers() {
-  std::cout << "Waiting Players:" << std::endl;
+  cout << "Waiting Players:" << endl;
   
   for (int i = 0; i < this->size; i++) {   // < em vez de <=
       Player& p = this->players[i];
-      std::cout << "[" << p.getId() << " | "
+      cout << "[" << p.getId() << " | "
                 << p.getName()      << " | "
                 << p.getScore()     << " | "
-                << p.getTimestamp() << "]" << std::endl;
+                << p.getTimestamp() << "]" << endl;
   }
 }
